@@ -1,15 +1,20 @@
-import './style.css';
-import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import "./style.css";
+import * as THREE from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 // Setup
 
 const scene = new THREE.Scene();
 
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const camera = new THREE.PerspectiveCamera(
+  75,
+  window.innerWidth / window.innerHeight,
+  0.1,
+  1000
+);
 
 const renderer = new THREE.WebGLRenderer({
-  canvas: document.querySelector('#bg'),
+  canvas: document.querySelector("#bg"),
 });
 
 renderer.setPixelRatio(window.devicePixelRatio);
@@ -22,7 +27,7 @@ renderer.render(scene, camera);
 // Torus
 
 const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
-const material = new THREE.MeshStandardMaterial({ color: 0xff6347 });
+const material = new THREE.MeshToonMaterial({ color: 0xff6347 });
 const torus = new THREE.Mesh(geometry, material);
 
 scene.add(torus);
@@ -45,7 +50,7 @@ scene.add(pointLight, ambientLight);
 
 function addStar() {
   const geometry = new THREE.SphereGeometry(0.25, 24, 24);
-  const material = new THREE.MeshStandardMaterial({ color: 0xffffff });
+  const material = new THREE.MeshToonMaterial({ color: 0xffffff });
   const star = new THREE.Mesh(geometry, material);
 
   const [x, y, z] = Array(3)
@@ -56,31 +61,35 @@ function addStar() {
   scene.add(star);
 }
 
-Array(200).fill().forEach(addStar);
+Array(400).fill().forEach(addStar);
 
 // Background
 
-const spaceTexture = new THREE.TextureLoader().load('space.jpg');
-scene.background = spaceTexture;
+// const spaceTexture = new THREE.TextureLoader().load(
+//   "Screenshot 2023-01-27 222729.jpg"
+// );
+// scene.background = spaceTexture;
 
 // Avatar
 
-const jeffTexture = new THREE.TextureLoader().load('jeff.png');
+const jeffTexture = new THREE.TextureLoader().load("jeff.png");
 
-const jeff = new THREE.Mesh(new THREE.BoxGeometry(3, 3, 3), new THREE.MeshBasicMaterial({ map: jeffTexture }));
+const jeff = new THREE.Mesh(
+  new THREE.BoxGeometry(3, 3, 3),
+  new THREE.MeshBasicMaterial({ map: jeffTexture })
+);
 
 scene.add(jeff);
 
 // Moon
 
-const moonTexture = new THREE.TextureLoader().load('moon.jpg');
-const normalTexture = new THREE.TextureLoader().load('normal.jpg');
+const moonTexture = new THREE.TextureLoader().load("moon.jpg");
+const normalTexture = new THREE.TextureLoader().load("normal.jpg");
 
 const moon = new THREE.Mesh(
   new THREE.SphereGeometry(3, 32, 32),
-  new THREE.MeshStandardMaterial({
+  new THREE.MeshToonMaterial({
     map: moonTexture,
-    normalMap: normalTexture,
   })
 );
 
@@ -111,6 +120,20 @@ function moveCamera() {
 document.body.onscroll = moveCamera;
 moveCamera();
 
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+const loader = new GLTFLoader();
+
+loader.load(
+  "path/to/model.glb",
+  function (gltf) {
+    scene.add(gltf.scene);
+  },
+  undefined,
+  function (error) {
+    console.error(error);
+  }
+);
+
 // Animation Loop
 
 function animate() {
@@ -121,6 +144,7 @@ function animate() {
   torus.rotation.z += 0.01;
 
   moon.rotation.x += 0.005;
+  // spaceTexture.rotation.z += 0.01;
 
   // controls.update();
 
