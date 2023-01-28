@@ -1,0 +1,11 @@
+Model Information:
+* title:	Mushroom Monk
+* source:	https://sketchfab.com/3d-models/mushroom-monk-16dac5e515d7467e947f544d522086aa
+* author:	Danil GoE (https://sketchfab.com/Goee)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Mushroom Monk" (https://sketchfab.com/3d-models/mushroom-monk-16dac5e515d7467e947f544d522086aa) by Danil GoE (https://sketchfab.com/Goee) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
