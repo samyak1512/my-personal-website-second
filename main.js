@@ -2,6 +2,8 @@ import "./style.css";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+
 // Setup
 
 const scene = new THREE.Scene();
@@ -31,6 +33,21 @@ const material = new THREE.MeshToonMaterial({ color: 0xff6347 });
 const torus = new THREE.Mesh(geometry, material);
 
 scene.add(torus);
+
+const loader = new GLTFLoader();
+
+// loader.load(
+//   "mushroom_monk/scene.gltf",
+//   function (gltf) {
+//     scene.add(gltf.scene);
+//   },
+//   undefined,
+//   function (error) {
+//     console.error(error);
+//   }
+// );
+
+// gltf.scene.position.z = 50;
 
 // Lights
 
@@ -95,6 +112,13 @@ const moon = new THREE.Mesh(
 
 scene.add(moon);
 
+const golu = new THREE.mesh(new THREE.SphereGeometry(3, 32, 35));
+
+scene.add(golu);
+
+golu.position.z = 40;
+golu.position.x = -20;
+
 moon.position.z = 30;
 moon.position.setX(-10);
 
@@ -120,20 +144,6 @@ function moveCamera() {
 document.body.onscroll = moveCamera;
 moveCamera();
 
-import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
-const loader = new GLTFLoader();
-
-loader.load(
-  "path/to/model.glb",
-  function (gltf) {
-    scene.add(gltf.scene);
-  },
-  undefined,
-  function (error) {
-    console.error(error);
-  }
-);
-
 // Animation Loop
 
 function animate() {
@@ -142,6 +152,10 @@ function animate() {
   torus.rotation.x += 0.01;
   torus.rotation.y += 0.005;
   torus.rotation.z += 0.01;
+
+  // loader.rotation.x += 0.01;
+  // loader.scene.rotation.y += 0.005;
+  // loader.rotation.z += 0.01;
 
   moon.rotation.x += 0.005;
   // spaceTexture.rotation.z += 0.01;
