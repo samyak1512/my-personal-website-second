@@ -106,7 +106,9 @@ Array(400).fill().forEach(addStar);
 
 // Avatar
 
-const jeffTexture = new THREE.TextureLoader().load("jeff.png");
+const jeffTexture = new THREE.TextureLoader().load(
+  "Screenshot 2023-01-27 222729.jpg"
+);
 
 const jeff = new THREE.Mesh(
   new THREE.BoxGeometry(3, 3, 3),
