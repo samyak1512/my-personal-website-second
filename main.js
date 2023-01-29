@@ -35,17 +35,18 @@ const torus = new THREE.Mesh(geometry, material);
 scene.add(torus);
 
 const loader = new GLTFLoader();
-
-// loader.load(
-//   "mushroom_monk/scene.gltf",
-//   function (gltf) {
-//     scene.add(gltf.scene);
-//   },
-//   undefined,
-//   function (error) {
-//     console.error(error);
-//   }
-// );
+var obj;
+loader.load(
+  "mushroom_monk/scene.gltf",
+  function (gltf) {
+    obj = gltf.scene;
+    scene.add(obj);
+  },
+  undefined,
+  function (error) {
+    console.error(error);
+  }
+);
 
 // gltf.scene.position.z = 50;
 
@@ -100,27 +101,24 @@ scene.add(jeff);
 
 // Moon
 
-const moonTexture = new THREE.TextureLoader().load("moon.jpg");
-const normalTexture = new THREE.TextureLoader().load("normal.jpg");
+// const moonTexture = new THREE.TextureLoader().load("moon.jpg");
+// const normalTexture = new THREE.TextureLoader().load("normal.jpg");
 
-const moon = new THREE.Mesh(
-  new THREE.SphereGeometry(3, 32, 32),
-  new THREE.MeshToonMaterial({
-    map: moonTexture,
-  })
-);
+// const moon = new THREE.Mesh(
+//   new THREE.SphereGeometry(3, 32, 32),
+//   new THREE.MeshToonMaterial({
+//     map: moonTexture,
+//   })
+// );
 
-scene.add(moon);
+// scene.add(moon);
 
-const golu = new THREE.mesh(new THREE.SphereGeometry(3, 32, 35));
+// const golu = new THREE.mesh(new THREE.SphereGeometry(3, 32, 35));
 
-scene.add(golu);
+// scene.add(golu);
 
-golu.position.z = 40;
-golu.position.x = -20;
-
-moon.position.z = 30;
-moon.position.setX(-10);
+// golu.position.z = 40;
+// golu.position.x = -20;
 
 jeff.position.z = -5;
 jeff.position.x = 2;
@@ -129,10 +127,11 @@ jeff.position.x = 2;
 
 function moveCamera() {
   const t = document.body.getBoundingClientRect().top;
-  moon.rotation.x += 0.05;
-  moon.rotation.y += 0.075;
-  moon.rotation.z += 0.05;
-
+  if (obj) {
+    obj.rotation.x += 0.05;
+    obj.rotation.y += 0.075;
+    obj.rotation.z += 0.05;
+  }
   jeff.rotation.y += 0.01;
   jeff.rotation.z += 0.01;
 
@@ -152,12 +151,17 @@ function animate() {
   torus.rotation.x += 0.01;
   torus.rotation.y += 0.005;
   torus.rotation.z += 0.01;
+  if (obj) {
+    obj.rotation.y += 0.01;
+    obj.position.z = 30;
+    obj.position.x = -50;
+  }
 
   // loader.rotation.x += 0.01;
   // loader.scene.rotation.y += 0.005;
   // loader.rotation.z += 0.01;
 
-  moon.rotation.x += 0.005;
+  // moon.rotation.x += 0.005;
   // spaceTexture.rotation.z += 0.01;
 
   // controls.update();
