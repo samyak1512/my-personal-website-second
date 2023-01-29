@@ -29,7 +29,7 @@ renderer.render(scene, camera);
 // Torus
 
 const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
-const material = new THREE.MeshToonMaterial({ color: 0xff6347 });
+const material = new THREE.MeshStandardMaterial({ color: 0xff6347 });
 const torus = new THREE.Mesh(geometry, material);
 
 scene.add(torus);
@@ -37,9 +37,11 @@ scene.add(torus);
 const loader = new GLTFLoader();
 var obj;
 loader.load(
-  "mushroom_monk/scene.gltf",
+  "earth_day/scene.gltf",
   function (gltf) {
+    gltf.scene.scale.set(200, 200, 200);
     obj = gltf.scene;
+    // mesh.material.opacity(1);
     scene.add(obj);
   },
   undefined,
@@ -47,6 +49,20 @@ loader.load(
     console.error(error);
   }
 );
+
+// var mush;
+// loader.load(
+//   "mushroom_monk/scene.gltf",
+//   function (gltf) {
+//     gltf.scene.scale.set(200, 200, 200);
+//     mush = gltf.scene;
+//     scene.add(mush);
+//   },
+//   undefined,
+//   function (error) {
+//     console.error(error);
+//   }
+// );
 
 // gltf.scene.position.z = 50;
 
@@ -101,18 +117,19 @@ scene.add(jeff);
 
 // Moon
 
-// const moonTexture = new THREE.TextureLoader().load("moon.jpg");
-// const normalTexture = new THREE.TextureLoader().load("normal.jpg");
+const moonTexture = new THREE.TextureLoader().load("moon.jpg");
+const normalTexture = new THREE.TextureLoader().load("normal.jpg");
 
-// const moon = new THREE.Mesh(
-//   new THREE.SphereGeometry(3, 32, 32),
-//   new THREE.MeshToonMaterial({
-//     map: moonTexture,
-//   })
-// );
-
-// scene.add(moon);
-
+const moon = new THREE.Mesh(
+  new THREE.SphereGeometry(0.1, 32, 32),
+  new THREE.MeshToonMaterial({
+    map: moonTexture,
+  })
+);
+// if (obj) {
+//   obj.add(moon);
+//   moon.position.x = 5;
+// }
 // const golu = new THREE.mesh(new THREE.SphereGeometry(3, 32, 35));
 
 // scene.add(golu);
@@ -155,6 +172,11 @@ function animate() {
     obj.rotation.y += 0.01;
     obj.position.z = 30;
     obj.position.x = -50;
+  }
+
+  if (obj) {
+    obj.add(moon);
+    moon.position.x = 1;
   }
 
   // loader.rotation.x += 0.01;
